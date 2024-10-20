@@ -13,9 +13,21 @@ interface PostProps {
     albumCoverUri: string;
     audioUri: string;
     description: string;
-    spotifyUri: string; // Add Spotify URI
+    spotifyUri?: string; // Add Spotify URI
   };
 }
+
+interface Interaction {
+  likes: number; 
+  comments: Comment[];
+}
+
+interface Comment {
+  username: string;
+  text: string;
+}
+
+
 
 const PostComponent: React.FC<PostProps> = ({ post }) => {
   const [isPlaying, setIsPlaying] = useState(false);

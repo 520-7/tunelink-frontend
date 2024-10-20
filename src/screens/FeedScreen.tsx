@@ -2,10 +2,17 @@ import React from 'react';
 import { View, FlatList, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
 import PostComponent from '../components/PostComponent'; // Adjust the path to your component
 import { Ionicons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../navigation/RootStackParamList';
 
 const { width, height } = Dimensions.get('window');
 
-const FeedScreen = () => {
+type FeedScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Feed'>;
+interface Props {
+  navigation: FeedScreenNavigationProp;
+}
+
+const FeedScreen: React.FC<Props> =  ({navigation}) => {
   // Mock post data (you can have an array of mock posts)
   const posts = [
     {
@@ -15,7 +22,7 @@ const FeedScreen = () => {
       location: 'New York',
       albumCoverUri: 'https://via.placeholder.com/350x250',
       audioUri: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-      description: 'Just discovered this amazing track! 😍',
+      description: 'Just discovered this amazing track!  😍',
       spotifyLink: 'https://open.spotify.com/track/xyz',
       comments: [
         { username: 'Commenter1', text: 'Great track!' },
@@ -61,11 +68,11 @@ const FeedScreen = () => {
           <Ionicons name="musical-notes" size={30} color="#A8EB12" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.addButton}>
+        <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('MakePost')}>
           <Ionicons name="add-circle" size={70} color="#A8EB12" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.iconButton}>
+        <TouchableOpacity style={styles.iconButton} onPress={() => navigation.navigate('Profile')}>
           <Image
             source={{ uri: 'https://randomuser.me/api/portraits/men/30.jpg' }}
             style={styles.profilePic}
@@ -117,8 +124,8 @@ const styles = StyleSheet.create({
     transform: [{ translateX: 160 }, { translateY: 20 }],
   },
   profilePic: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
     borderRadius: 20,
   },
 });
